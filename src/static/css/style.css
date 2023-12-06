@@ -1,0 +1,68 @@
+input:placeholder-shown {
+    font-style: italic;
+}
+
+#Home {
+    /* background: rgba(3, 1, 69, 0.9); */
+    padding-top: 5rem;
+}
+
+.navbar, header, footer {
+    background: rgba(0, 0, 0, 0.966);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 10px 15px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    transition: top .3s;
+    z-index: 10;
+}
+
+.headlines {
+    background: #000;
+}
+
+.card-hover-shadow:hover {
+    scale: 100.5%;
+    box-shadow: rgba(0, 0, 0, 0.35) 20px 5px 15px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.nav-link {
+    color: #fff;
+}
+
+#News-Section .card:hover {
+    scale: 102%;
+    box-shadow: rgba(0, 0, 0, 0.35) 10px 5px 15px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+#Services {
+    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('../images/slide.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    text-shadow: rgb(245, 244, 244) 0px 0px 5px;
+}
+
+.dark-mode {
+    box-shadow: rgba(0, 0, 0, 0.35) 20px 25px 25px;
+    background: #000;
+    color: #fff;
+}
+
+.hidden {
+    top: -100px;
+}
+
+
+#Profile {
+    padding: 6rem 0;
+    min-height: 80vh;
+}

@@ -1,0 +1,54 @@
+body {
+    background-color: rgba(0, 27, 127, 0.922);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+.box-shadow {
+    box-shadow: rgba(0, 0, 0, 0.35) 20px 5px 15px;
+    transition: .3s;
+}
+
+.card, .heading {
+    background-color: rgba(0, 0, 0, 0.999);
+}
+
+.card:hover {
+    background-color: rgba(15, 9, 58, 0.869);
+    scale: 101%;
+    cursor: pointer;
+    color: #fff;
+}
+
+/* -------Navbar-------- */
+nav {
+    background-color: rgba(0, 0, 0, 0.999);
+    box-shadow: rgba(0, 0, 0, 0.35) 20px 5px 15px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+#Users, #Posts {
+    /* background-color: rgba(0, 0, 0, .8); */
+    background-color: rgb(10, 4, 57);
+    box-shadow: 10px 10px 10px rgba(10, 9, 9, 0.754);
+    color: #fff;
+    margin: 20px auto;
+}
+
+.table-scroll {
+    overflow-x: scroll;
+    width: 100%;
+}
+
+.form {
+    background-color: rgba(0, 0, 0, .8);
+    padding: 10px;
+    box-shadow: 10px 10px 10px rgba(10, 9, 9, 0.754);
+    border-radius: 10px;
+    margin: 20px auto;
+    color: #fff;
+}
