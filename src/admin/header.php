@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Amaanullah Khan Laghari">
+    <meta name="description" content="News blogger application which allows users to add their news and create blogs of the news.">
+    <meta name="keywords" content="news and blogs, news blogger, akl, news headlines, news blogger application">
+    <meta http-equiv="refresh" content="30">
     <title><?= $title ?></title>
     <link rel="stylesheet" href="../static/font-6/css/all.css">
     <link rel="stylesheet" href="../static/css/bootstrap.css">
