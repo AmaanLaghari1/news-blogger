@@ -47,8 +47,8 @@ require_once "./header.php";
               <th class="col-2">Last Name</th>
               <th class="col-2">Username</th>
               <th class="col-2">Password</th>
-              <th class="col-2">Role</th>
-              <th class="col-1">Action</th>
+              <th class="col-1">Role</th>
+              <th class="col-2">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -64,7 +64,6 @@ require_once "./header.php";
                 $id = 'user-data'
             ?>
           <tbody id="user-search"></tbody>
-          <!-- <div id="user-data"> -->
 
           <tr class="user-data">
             <th class=""><?= $user->user_id ?></th>
@@ -167,7 +166,8 @@ require_once "./header.php";
 
     let formData = new FormData()
     formData.append('searchValue', searchValue)
-    formData.append('auth', 'search-user')
+    formData.append('searchFrom', 'users')
+    formData.append('auth', 'search')
 
     xhttp.onreadystatechange = function() {
       let searchResult = document.getElementById('user-search')
@@ -186,7 +186,7 @@ require_once "./header.php";
               <td class='table-info'>${item.firstname}</td>
               <td class='table-info'>${item.lastname}</td>
               <td class='table-info'>${item.username}</td>
-              <td class='table-info'>${item.password}</td>
+              <td class='table-info'>${item.password.slice(0, 8)}...</td>
               <td class='table-info'>${item.role}</td>
               <td class='table-info'>
                 <a href="./upduser.php?id=${item.user_id}" class="btn btn-sm btn-outline-success mx-1">EDIT</a>

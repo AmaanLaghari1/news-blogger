@@ -1,6 +1,6 @@
 @media only screen and (max-width: 564px){
     html {
-        font-size: 55%;
+        font-size: 80%;
     }
     table {
         font-size: 55%;
@@ -8,7 +8,7 @@
 }
 @media only screen and (min-width: 564px){
     html {
-        font-size: 65%;
+        font-size: 85%;
     }
     table {
         font-size: 65%;
@@ -16,7 +16,7 @@
 }
 @media only screen and (min-width: 768px){
     html, table {
-        font-size: 75%;
+        font-size: 85%;
     }
 }
 @media only screen and (min-width: 992px){

@@ -159,7 +159,7 @@ require_once "./header.php";
 
     let formData = new FormData()
     formData.append('searchValue', searchValue)
-    formData.append('auth', 'search-user')
+    formData.append('auth', 'search')
     formData.append('searchFrom', 'category')
 
     xhttp.onreadystatechange = function() {

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../static/css/bootstrap.css">
     <link rel="stylesheet" href="./admin.css">
     <link rel="stylesheet" href="../static/css/mediaq.css">
+
 </head>
 <body>
 <nav id="navbar" class="navbar navbar-expand-lg navbar-dark p-3 w-100">

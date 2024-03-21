@@ -253,14 +253,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             break;
 
         // Requests From Admin Panel
-        case 'search-user':
+        case 'search':
             $searchValue = $_POST['searchValue'];
             $searchFrom = $_POST['searchFrom'];
             if($searchFrom === 'category'){
                 $sqlSelect = "SELECT * FROM categories WHERE category LIKE '%{$searchValue}%'";
             }
-            else {
+            elseif ($searchFrom === 'users') {
                 $sqlSelect = "SELECT * FROM users WHERE username LIKE '%{$searchValue}%' OR firstname LIKE '%{$searchValue}%' OR lastname LIKE '%{$searchValue}%'";
+            }
+            elseif ($searchFrom === 'posts') {
+                $sqlSelect = "SELECT * FROM posts WHERE title LIKE '%{$searchValue}%'";
             }
             $result = $con->query($sqlSelect);
             if($result->num_rows > 0){
