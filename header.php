@@ -22,7 +22,6 @@ if($con->query($sqlSel)){
     <meta name="author" content="Amaanullah Khan Laghari">
     <meta name="description" content="News blogger application which allows users to add their news and create blogs of the news.">
     <meta name="keywords" content="news and blogs, news blogger, news blogger by akl, akl, news headlines, news blogger application">
-    <meta http-equiv="refresh" content="30">
     <title>News Blogger - <?= $title ?></title>
     <link rel="stylesheet" href="./src/static/font-6/css/all.css">
     <link rel="stylesheet" href="./src/static/css/bootstrap.css">

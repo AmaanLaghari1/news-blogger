@@ -12,9 +12,13 @@ $sqlSel = "SELECT posts.pid, posts.title, posts.description, posts.category, pos
 
 ?>
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Amaanullah Khan Laghari">
+    <meta name="description" content="News blogger application which allows users to add their news and create blogs of the news.">
+    <meta name="keywords" content="news and blogs, news blogger, akl, news blogger by akl,  news headlines, news blogger application">
     <title>News Bloggger</title>
     <link rel="stylesheet" href="./src/static/css/all.css">
     <link rel="stylesheet" href="./src/static/css/bootstrap.css">

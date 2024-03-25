@@ -162,32 +162,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             break;
 
         case 'add-post':
+            // Store error/success messages
             $msgs = array();
-            // Image File
-            if (isset($_FILES['fileToUpload'])) {
 
-                $fileName = $_FILES['fileToUpload']['name'];
-                $fileSize = $_FILES['fileToUpload']['size'];
-                $fileTmp = $_FILES['fileToUpload']['tmp_name'];
-                $fileType = $_FILES['fileToUpload']['type'];
-                $temp = explode('.', $fileName);
-                $fileExt = end($temp);
-                $extensions = array('jpg', 'jpeg', 'png', 'avif', 'webp');
-
-                if (in_array($fileExt, $extensions) === false) {
-                    $msgs = ["status" => "error", "msg" => "Must be a jpg or png file format!"];
-                    echo json_encode($msgs);
-                }
-                if ($fileSize > 2097152) { // 2097152 bytes = 2MB
-                    $msgs = ["status" => "error", "msg" => "File size must be lower than 2MB!"];
-                    echo json_encode($msgs);
-                }
-                if (empty($msgs)) {
-                    move_uploaded_file($fileTmp, "./src/admin/uploads/" . $fileName);
-                }
-            }
-
-
+            // Clean user inputs
             $title = cleanedData($_POST['title']);
             $category = cleanedData($_POST['category']);
             $description = addslashes(htmlspecialchars($_POST['desc']));
@@ -196,22 +174,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = $_POST['user_id'];
             $date = date('Y-m-d H:i:s');
 
-            $sqlIns = "INSERT INTO posts (title, description, imgurl, user, category, date_created, headline, approved) VALUES ('{$title}', '{$description}', '{$fileName}', {$user}, {$category}, '{$date}', {$approve}, {$headline})";
-            // exit();
-            // die();
-            $resultInsert = $con->query($sqlIns);
-            if ($resultInsert) {
-                $msgs = ["status" => "success", "msg" => "Your post will be added soon as admin approve..."];
-                echo json_encode($msgs);
+            // Validate user input
+            if(empty($title)){
+                $msgs = ["status" => "error", "msg" => "Title is required!"];
+            } 
+            elseif(empty($category)){
+                $msgs = ["status" => "error", "msg" => "Category is required!"];
             }
-            break;
+            elseif(empty($description)){
+                $msgs = ["status" => "error", "msg" => "Description is required!"];
+            }
+            elseif(!isset($_FILES['fileToUpload'])){
+                $msgs = ["status" => "error", "msg" => "Image is required!"];
+            }
+            else {
 
-        case 'upd-post':
-            $msgs = array();
-            // Image File
-            if (empty($_FILES['fileToUpload']['name'])) {
-                $fileName = isset($_POST['prev-img']) ? $_POST['prev-img'] : "";
-            } else {
                 $fileName = $_FILES['fileToUpload']['name'];
                 $fileSize = $_FILES['fileToUpload']['size'];
                 $fileTmp = $_FILES['fileToUpload']['tmp_name'];
@@ -220,18 +197,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $fileExt = end($temp);
                 $extensions = array('jpg', 'jpeg', 'png', 'avif', 'webp');
 
-                if (in_array($fileExt, $extensions) === false) {
-                    $msgs = ["status" => "error", "msg" => "Must be a jpg or png file format!"];
-                    echo json_encode($msgs);
+                if(empty($fileName)){
+                    $msgs = ["status" => "error", "msg" => "Filename is required!"];
+                }
+
+                if (in_array(strtolower($fileExt), $extensions) === false) {
+                    $msgs = ["status" => "error", "msg" => "Invalid file format! (must be a 'jpg', 'jpeg', 'png', 'avif' or 'webp')"];
                 }
                 if ($fileSize > 2097152) { // 2097152 bytes = 2MB
                     $msgs = ["status" => "error", "msg" => "File size must be lower than 2MB!"];
-                    echo json_encode($msgs);
                 }
                 if (empty($msgs)) {
                     move_uploaded_file($fileTmp, "./src/admin/uploads/" . $fileName);
                 }
+
             }
+            // After validation insert into database
+            if(empty($msgs)) {
+                $sqlIns = "INSERT INTO posts (title, description, imgurl, user, category, date_created, headline, approved) VALUES ('{$title}', '{$description}', '{$fileName}', {$user}, {$category}, '{$date}', {$approve}, {$headline})";
+                $resultInsert = $con->query($sqlIns);
+                if ($resultInsert) {
+                    $msgs = ["status" => "success", "msg" => "Your post will be added soon as admin approve..."];
+                }
+            }
+
+            echo json_encode($msgs);
+            break;
+
+        case 'upd-post':
+            $msgs = array();
+            
 
             $title = cleanedData($_POST['title']);
             $desc = cleanedData($_POST['desc']);
@@ -240,16 +235,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $pid = $_POST['pid'];
             $date = date('Y-m-d H:i:s');
 
-            $sql = "UPDATE posts SET date_created = '" . $date . "', title = '" . $title . "' , description = '" . $desc . "', imgurl = '" . $fileName . "', user = '" . $user . "', category = " . $category . " WHERE pid = " . $pid . "";
-            // die();
-            $result = $con->query($sql);
-            if ($result) {
-                $msgs = ["status" => "success", "msg" => "Post updated successfully..."];
-                echo json_encode($msgs);
-            } else {
-                $msgs = ["status" => "error", "msg" => "Error updating the post!"];
-                echo json_encode($msgs);
+            // Validate user input
+            if(empty($title)){
+                $msgs = ["status" => "error", "msg" => "Title is required!"];
+            } 
+            elseif(empty($category)){
+                $msgs = ["status" => "error", "msg" => "Category is required!"];
             }
+            elseif(empty($desc)){
+                $msgs = ["status" => "error", "msg" => "Description is required!"];
+            }
+            elseif(!isset($_FILES['fileToUpload'])){
+                $msgs = ["status" => "error", "msg" => "Image is required!"];
+            }
+            else {
+
+                $fileName = $_FILES['fileToUpload']['name'];
+                $fileSize = $_FILES['fileToUpload']['size'];
+                $fileTmp = $_FILES['fileToUpload']['tmp_name'];
+                $fileType = $_FILES['fileToUpload']['type'];
+                $temp = explode('.', $fileName);
+                $fileExt = end($temp);
+                $extensions = array('jpg', 'jpeg', 'png', 'avif', 'webp');
+
+                if(empty($fileName)){
+                    $msgs = ["status" => "error", "msg" => "Filename is required!"];
+                }
+
+                if (in_array(strtolower($fileExt), $extensions) === false) {
+                    $msgs = ["status" => "error", "msg" => "Invalid file format! (must be a 'jpg', 'jpeg', 'png', 'avif' or 'webp')"];
+                }
+                if ($fileSize > 2097152) { // 2097152 bytes = 2MB
+                    $msgs = ["status" => "error", "msg" => "File size must be lower than 2MB!"];
+                }
+                if (empty($msgs)) {
+                    move_uploaded_file($fileTmp, "./src/admin/uploads/" . $fileName);
+                }
+
+            }
+
+            // After validation insert into database
+            if(empty($msgs)) {
+                $sql = "UPDATE posts SET date_created = '" . $date . "', title = '" . $title . "' , description = '" . $desc . "', imgurl = '" . $fileName . "', user = '" . $user . "', category = " . $category . " WHERE pid = " . $pid . "";
+                // die();
+                $result = $con->query($sql);
+                if ($result) {
+                    $msgs = ["status" => "success", "msg" => "Post updated successfully..."];
+                } else {
+                    $msgs = ["status" => "error", "msg" => "Error updating the post!"];
+                }
+            }
+            echo json_encode($msgs);
             break;
 
         // Requests From Admin Panel
